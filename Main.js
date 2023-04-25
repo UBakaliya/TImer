@@ -1,6 +1,6 @@
 const startBtn = document.getElementById("start-btn");
 const stopBtn = document.getElementById("stop-btn");
-const restBtn = document.getElementById("rest-btn");
+const reset = document.getElementById("reset-btn");
 const hoursInput = document.getElementById("hours");
 const minutesInput = document.getElementById("minutes");
 const secondsInput = document.getElementById("seconds");
@@ -70,6 +70,10 @@ function resetStopwatch() {
     hoursInput.value = "";
     minutesInput.value = "";
     secondsInput.value = "";
+    hoursInput.disabled = false;
+    minutesInput.disabled = false;
+    secondsInput.disabled = false;
+    startBtn.disabled = false;
 }
 
 function updateInputs() {
@@ -84,4 +88,4 @@ function padZero(number) {
 
 startBtn.addEventListener("click", startStopwatch);
 stopBtn.addEventListener("click", stopStopwatch);
-restBtn.addEventListener("click", resetStopwatch);
+reset.addEventListener("click", resetStopwatch);
