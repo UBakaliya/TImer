@@ -23,7 +23,7 @@ This is a timer application that allows users to set a countdown timer for a spe
 
 ## URL:
 
-You can see a live demo of this timer application at https://ubakaliya.github.io/TImer/.
+You can see a live demo of this timer application at https://ubakaliya.github.io/Timer/.
 
 ## Built With
 
