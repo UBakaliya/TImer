@@ -33,7 +33,7 @@ You can see a live demo of this timer application at https://ubakaliya.github.io
 
 ## Author
 
--   Your Name (uvaish)
+-  Uvaish Bakaliya
 
 ## License
 
