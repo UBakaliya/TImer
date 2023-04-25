@@ -11,58 +11,61 @@ let hours = 0;
 let minutes = 0;
 let seconds = 0;
 
-function startStopwatch() {
+function startTimer() {
     if ((hoursInput.value == "" && minutesInput.value == "" &&
         secondsInput.value == "") || Number(hoursInput.value) < 1 &&
         Number(minutesInput.value) < 1 && Number(secondsInput.value) < 1) {
         return;
     }
 
-    hours = (hoursInput.value);
-    minutes = (minutesInput.value);
-    seconds = (secondsInput.value);
-
+    hours = Number(hoursInput.value);
+    minutes = Number(minutesInput.value);
+    seconds = Number(secondsInput.value);
 
     hoursInput.disabled = true;
     minutesInput.disabled = true;
     secondsInput.disabled = true;
+    startBtn.disabled = true;
+
+    let totalSeconds = hours * 3600 + minutes * 60 + seconds;
 
     intervalId = setInterval(() => {
-        if (hours == 0 && minutes == 0 && seconds == 0) {
-            startBtn.disabled = false;
+
+        let remainingHours = Math.floor(totalSeconds / 3600);
+        let remainingMinutes = Math.floor((totalSeconds % 3600) / 60);
+        let remainingSeconds = totalSeconds % 60;
+
+        hoursInput.value = padZero(remainingHours);
+        minutesInput.value = padZero(remainingMinutes);
+        secondsInput.value = padZero(remainingSeconds);
+
+        if (totalSeconds <= 0) {
+            clearInterval(intervalId);
+            beepSound.play();
             hoursInput.disabled = false;
             minutesInput.disabled = false;
             secondsInput.disabled = false;
-            clearInterval(intervalId);
-            beepSound.play()
+            reset.disabled = false;
+            startBtn.disabled = false;
             return;
         }
-        startBtn.disabled = true;
-        seconds--;
 
-        if (seconds === -1) {
-            seconds = 59;
-            minutes--;
-        }
-
-        if (minutes === -1) {
-            minutes = 59;
-            hours--;
-        }
-        updateInputs();
+        totalSeconds--;
     }, 1000);
 }
 
-function stopStopwatch() {
+function stopTimer() {
+    beepSound.currentTime = 0;
     beepSound.pause();
+    clearInterval(intervalId);
     hoursInput.disabled = false;
     minutesInput.disabled = false;
     secondsInput.disabled = false;
+    reset.disabled = false;
     startBtn.disabled = false;
-    clearInterval(intervalId);
 }
 
-function resetStopwatch() {
+function resetTimer() {
     clearInterval(intervalId);
     hours = 0;
     minutes = 0;
@@ -76,16 +79,10 @@ function resetStopwatch() {
     startBtn.disabled = false;
 }
 
-function updateInputs() {
-    hoursInput.value = padZero(hours).toString();
-    minutesInput.value = padZero(minutes).toString();
-    secondsInput.value = padZero(seconds).toString();
-}
+startBtn.addEventListener("click", startTimer);
 
-function padZero(number) {
-    return number.toString().padStart(2, "0");
-}
+stopBtn.addEventListener("click", stopTimer);
 
-startBtn.addEventListener("click", startStopwatch);
-stopBtn.addEventListener("click", stopStopwatch);
-reset.addEventListener("click", resetStopwatch);
+reset.addEventListener("click", resetTimer);
+
+function padZero(number) { return number.toString().padStart(2, "0"); }
