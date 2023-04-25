@@ -21,7 +21,8 @@ This is a timer application that allows users to set a countdown timer for a spe
 
 4. Click on the "Stop" button to stop the timer.
 
-URL:
+## URL:
+
 You can see a live demo of this timer application at https://your-username.github.io/timer-project/.
 
 ## Built With

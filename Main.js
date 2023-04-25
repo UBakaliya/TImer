@@ -4,33 +4,39 @@ const restBtn = document.getElementById("rest-btn");
 const hoursInput = document.getElementById("hours");
 const minutesInput = document.getElementById("minutes");
 const secondsInput = document.getElementById("seconds");
-const changeBackgroundColor = document.getElementById("changeColor");
-const pageBody = document.querySelector("body");
+const beepSound = document.getElementById("beep-sound");
+
 let intervalId;
 let hours = 0;
 let minutes = 0;
 let seconds = 0;
 
 function startStopwatch() {
-
-    if (secondsInput.value == "" && minutesInput.value == "" && secondsInput.value == "") {
+    if ((hoursInput.value == "" && minutesInput.value == "" &&
+        secondsInput.value == "") || Number(hoursInput.value) < 1 &&
+        Number(minutesInput.value) < 1 && Number(secondsInput.value) < 1) {
         return;
     }
+
     hours = (hoursInput.value);
     minutes = (minutesInput.value);
     seconds = (secondsInput.value);
     hoursInput.disabled = true;
     minutesInput.disabled = true;
     secondsInput.disabled = true;
+
     intervalId = setInterval(() => {
         if (hours == 0 && minutes == 0 && seconds == 0) {
             hoursInput.disabled = false;
             minutesInput.disabled = false;
             secondsInput.disabled = false;
             clearInterval(intervalId);
+            beepSound.play()
             return;
         }
+
         seconds--;
+
         if (seconds === -1) {
             seconds = 59;
             minutes--;
@@ -44,8 +50,8 @@ function startStopwatch() {
     }, 1000);
 }
 
-
 function stopStopwatch() {
+    beepSound.pause();
     hoursInput.disabled = false;
     minutesInput.disabled = false;
     secondsInput.disabled = false;
@@ -75,14 +81,3 @@ function padZero(number) {
 startBtn.addEventListener("click", startStopwatch);
 stopBtn.addEventListener("click", stopStopwatch);
 restBtn.addEventListener("click", resetStopwatch);
-
-function changeColor() {
-    if (pageBody.style.backgroundColor == "black") {
-        pageBody.style.backgroundColor = "white";
-    }
-    else {
-        pageBody.style.backgroundColor = "black";
-        
-    }
-}
-changeBackgroundColor.addEventListener("click", changeColor);
