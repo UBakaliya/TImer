@@ -1,6 +1,6 @@
 <!-- @format -->
 
-# Timer (TO USE IT: https://ubakaliya.github.io/TImer/)
+# Timer (TO USE IT: https://ubakaliya.github.io/Timer/)
 
 This is a timer application that allows users to set a countdown timer for a specific duration and rest time. Users can also pause, resume and stop the timer as needed.
 
