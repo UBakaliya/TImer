@@ -21,12 +21,15 @@ function startStopwatch() {
     hours = (hoursInput.value);
     minutes = (minutesInput.value);
     seconds = (secondsInput.value);
+
+
     hoursInput.disabled = true;
     minutesInput.disabled = true;
     secondsInput.disabled = true;
 
     intervalId = setInterval(() => {
         if (hours == 0 && minutes == 0 && seconds == 0) {
+            startBtn.disabled = false;
             hoursInput.disabled = false;
             minutesInput.disabled = false;
             secondsInput.disabled = false;
@@ -34,7 +37,7 @@ function startStopwatch() {
             beepSound.play()
             return;
         }
-
+        startBtn.disabled = true;
         seconds--;
 
         if (seconds === -1) {
@@ -55,6 +58,7 @@ function stopStopwatch() {
     hoursInput.disabled = false;
     minutesInput.disabled = false;
     secondsInput.disabled = false;
+    startBtn.disabled = false;
     clearInterval(intervalId);
 }
 
